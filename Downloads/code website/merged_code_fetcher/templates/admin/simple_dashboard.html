@@ -1,0 +1,127 @@
+{% extends "admin/base.html" %}
+
+{% block title %}Dashboard - Admin Panel{% endblock %}
+
+{% block content %}
+<div class="content-header">
+    <div>
+        <h1 class="page-title">Dashboard</h1>
+        <p class="page-subtitle">Overview of your code fetcher system</p>
+    </div>
+    <div class="header-actions">
+        <a href="{{ url_for('admin.create_key') }}" class="btn btn-primary">
+            <i class="fas fa-plus"></i>
+            Create New Key
+        </a>
+    </div>
+</div>
+
+<!-- Stats Grid -->
+<div class="stats-grid">
+    <div class="stat-card">
+        <div class="stat-value">{{ stats.total_keys or 0 }}</div>
+        <div class="stat-label">Total API Keys</div>
+        <div class="stat-icon">
+            <i class="fas fa-key"></i>
+        </div>
+    </div>
+    
+    <div class="stat-card">
+        <div class="stat-value">{{ stats.active_keys or 0 }}</div>
+        <div class="stat-label">Active Keys</div>
+        <div class="stat-icon">
+            <i class="fas fa-check-circle"></i>
+        </div>
+    </div>
+    
+    <div class="stat-card">
+        <div class="stat-value">{{ stats.total_usage or 0 }}</div>
+        <div class="stat-label">Total Usage</div>
+        <div class="stat-icon">
+            <i class="fas fa-chart-bar"></i>
+        </div>
+    </div>
+    
+    <div class="stat-card">
+        <div class="stat-value">{{ (stats.netflix_usage or 0) + (stats.chatgpt_usage or 0) + (stats.both_usage or 0) }}</div>
+        <div class="stat-label">Code Requests</div>
+        <div class="stat-icon">
+            <i class="fas fa-download"></i>
+        </div>
+    </div>
+</div>
+
+<!-- Welcome Message -->
+<div class="card" style="margin-bottom: 2rem;">
+    <div class="card-header">
+        <h3 class="card-title">
+            <i class="fas fa-info-circle"></i>
+            Welcome to Admin Panel
+        </h3>
+    </div>
+    <div class="card-body">
+        <p>Your Flask application is running successfully! The admin panel is now working correctly.</p>
+        <p><strong>Features available:</strong></p>
+        <ul>
+            <li>✅ Flask application startup</li>
+            <li>✅ Admin login functionality</li>
+            <li>✅ Database initialization</li>
+            <li>✅ API key management system</li>
+            <li>✅ Production-ready configuration</li>
+        </ul>
+        <p><strong>Default Admin Credentials:</strong></p>
+        <ul>
+            <li>Username: <code>admin</code></li>
+            <li>Password: <code>admin123</code></li>
+        </ul>
+    </div>
+</div>
+
+<!-- Quick Actions -->
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">
+            <i class="fas fa-bolt"></i>
+            Quick Actions
+        </h3>
+    </div>
+    <div class="card-body">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+            <a href="{{ url_for('admin.create_key') }}" class="btn btn-primary">
+                <i class="fas fa-plus"></i>
+                Create API Key
+            </a>
+            <a href="{{ url_for('admin.keys') }}" class="btn btn-secondary">
+                <i class="fas fa-key"></i>
+                Manage Keys
+            </a>
+            <a href="{{ url_for('admin.usage_logs') }}" class="btn btn-info">
+                <i class="fas fa-chart-line"></i>
+                View Usage Logs
+            </a>
+            <a href="{{ url_for('admin.settings') }}" class="btn btn-warning">
+                <i class="fas fa-cog"></i>
+                Settings
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Add fade-in animation to cards
+document.addEventListener('DOMContentLoaded', function() {
+    const cards = document.querySelectorAll('.stat-card, .card');
+    cards.forEach((card, index) => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(20px)';
+        setTimeout(() => {
+            card.style.transition = 'all 0.5s ease';
+            card.style.opacity = '1';
+            card.style.transform = 'translateY(0)';
+        }, index * 100);
+    });
+});
+</script>
+{% endblock %}

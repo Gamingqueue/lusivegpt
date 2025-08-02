@@ -1,0 +1,490 @@
+{% extends "base.html" %}
+
+{% block title %}Code Fetcher - Premium Verification Service{% endblock %}
+
+{% block extra_css %}
+<style>
+    body {
+        background: linear-gradient(135deg, #0f0f23, #1a1a2e, #16213e, #0f3460);
+        background-size: 400% 400%;
+        animation: gradientShift 20s ease infinite;
+        position: relative;
+        overflow-x: hidden;
+    }
+
+    /* Floating particles background */
+    body::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: 
+            radial-gradient(2px 2px at 20px 30px, rgba(255,255,255,0.1), transparent),
+            radial-gradient(2px 2px at 40px 70px, rgba(255,255,255,0.05), transparent),
+            radial-gradient(1px 1px at 90px 40px, rgba(255,255,255,0.08), transparent),
+            radial-gradient(1px 1px at 130px 80px, rgba(255,255,255,0.03), transparent);
+        background-repeat: repeat;
+        background-size: 200px 100px;
+        animation: float 15s linear infinite;
+        z-index: -1;
+    }
+
+    @keyframes gradientShift {
+        0% { background-position: 0% 50%; }
+        25% { background-position: 100% 50%; }
+        50% { background-position: 100% 100%; }
+        75% { background-position: 0% 100%; }
+        100% { background-position: 0% 50%; }
+    }
+
+    @keyframes float {
+        0% { transform: translateY(0px) translateX(0px); }
+        33% { transform: translateY(-10px) translateX(10px); }
+        66% { transform: translateY(5px) translateX(-5px); }
+        100% { transform: translateY(0px) translateX(0px); }
+    }
+
+    .service-selector {
+        max-width: 1200px;
+        margin: 0 auto;
+        text-align: center;
+        padding: 3rem 2rem;
+        position: relative;
+        z-index: 2;
+    }
+
+    .hero-section {
+        margin-bottom: 4rem;
+        position: relative;
+    }
+
+    .main-title {
+        font-size: 4.5rem;
+        font-weight: 800;
+        margin-bottom: 1.5rem;
+        background: linear-gradient(135deg, #fff, #e0e0e0, #4facfe, #00f2fe);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        animation: slideInDown 1s ease-out, titleGlow 3s ease-in-out infinite alternate;
+        text-shadow: 0 0 30px rgba(255,255,255,0.1);
+        position: relative;
+    }
+
+    .main-title::after {
+        content: '';
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100px;
+        height: 4px;
+        background: linear-gradient(90deg, #4facfe, #00f2fe);
+        border-radius: 2px;
+        animation: slideInUp 1s ease-out 0.5s both;
+    }
+
+    @keyframes titleGlow {
+        0% { filter: brightness(1) drop-shadow(0 0 10px rgba(79, 172, 254, 0.3)); }
+        100% { filter: brightness(1.1) drop-shadow(0 0 20px rgba(79, 172, 254, 0.5)); }
+    }
+
+    .main-subtitle {
+        font-size: 1.4rem;
+        color: rgba(255, 255, 255, 0.9);
+        margin-bottom: 2rem;
+        animation: slideInUp 1s ease-out 0.3s both;
+        font-weight: 300;
+        letter-spacing: 0.5px;
+    }
+
+    .stats-bar {
+        display: flex;
+        justify-content: center;
+        gap: 3rem;
+        margin-bottom: 4rem;
+        animation: slideInUp 1s ease-out 0.6s both;
+    }
+
+    .stat-item {
+        text-align: center;
+        padding: 1rem;
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(10px);
+        border-radius: 15px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        min-width: 120px;
+    }
+
+    .stat-number {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #4facfe;
+        display: block;
+    }
+
+    .stat-label {
+        font-size: 0.9rem;
+        color: rgba(255, 255, 255, 0.7);
+        margin-top: 0.5rem;
+    }
+
+    .services-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 3rem;
+        margin-bottom: 4rem;
+    }
+
+    .service-card {
+        background: rgba(255, 255, 255, 0.08);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 25px;
+        padding: 3rem;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        cursor: pointer;
+        text-decoration: none;
+        color: white;
+        position: relative;
+        overflow: hidden;
+        animation: slideInUp 1s ease-out both;
+        transform-style: preserve-3d;
+    }
+
+    .service-card:nth-child(1) { animation-delay: 0.8s; }
+    .service-card:nth-child(2) { animation-delay: 1s; }
+
+    .service-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+        transition: left 0.6s ease;
+    }
+
+    .service-card:hover::before {
+        left: 100%;
+    }
+
+    .service-card:hover {
+        transform: translateY(-15px) rotateX(5deg);
+        box-shadow: 
+            0 25px 50px rgba(0, 0, 0, 0.4),
+            0 0 0 1px rgba(255, 255, 255, 0.1),
+            inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    .netflix-card:hover {
+        border-color: #e50914;
+        box-shadow: 
+            0 25px 50px rgba(229, 9, 20, 0.4),
+            0 0 30px rgba(229, 9, 20, 0.2),
+            inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    }
+
+    .chatgpt-card:hover {
+        border-color: #10a37f;
+        box-shadow: 
+            0 25px 50px rgba(16, 163, 127, 0.4),
+            0 0 30px rgba(16, 163, 127, 0.2),
+            inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    }
+
+    .service-icon {
+        width: 100px;
+        height: 100px;
+        margin: 0 auto 2rem;
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 3rem;
+        transition: all 0.4s ease;
+        position: relative;
+    }
+
+    .netflix-icon {
+        background: linear-gradient(135deg, #e50914, #b20710);
+        color: white;
+        box-shadow: 0 10px 30px rgba(229, 9, 20, 0.3);
+    }
+
+    .chatgpt-icon {
+        background: linear-gradient(135deg, #10a37f, #0d8a6b);
+        color: white;
+        box-shadow: 0 10px 30px rgba(16, 163, 127, 0.3);
+    }
+
+    .service-card:hover .service-icon {
+        transform: scale(1.15) rotate(10deg);
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    .service-title {
+        font-size: 2.2rem;
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+        background: linear-gradient(135deg, #fff, #e0e0e0);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .service-description {
+        font-size: 1.1rem;
+        color: rgba(255, 255, 255, 0.85);
+        line-height: 1.7;
+        margin-bottom: 2rem;
+        font-weight: 300;
+    }
+
+    .service-features {
+        list-style: none;
+        padding: 0;
+        text-align: left;
+        margin-bottom: 2rem;
+    }
+
+    .service-features li {
+        padding: 0.8rem 0;
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 1rem;
+        display: flex;
+        align-items: center;
+        transition: all 0.3s ease;
+    }
+
+    .service-features li:hover {
+        color: rgba(255, 255, 255, 1);
+        transform: translateX(5px);
+    }
+
+    .service-features li::before {
+        content: '✓';
+        color: #4CAF50;
+        font-weight: bold;
+        margin-right: 1rem;
+        font-size: 1.2rem;
+        width: 20px;
+        height: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(76, 175, 80, 0.2);
+        border-radius: 50%;
+        flex-shrink: 0;
+    }
+
+    .service-cta {
+        background: linear-gradient(135deg, #4facfe, #00f2fe);
+        border: none;
+        padding: 1rem 2rem;
+        border-radius: 50px;
+        color: white;
+        font-weight: 600;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        box-shadow: 0 10px 30px rgba(79, 172, 254, 0.3);
+    }
+
+    .service-cta:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 15px 40px rgba(79, 172, 254, 0.4);
+    }
+
+    .footer-info {
+        text-align: center;
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 1rem;
+        animation: slideInUp 1s ease-out 1.4s both;
+        margin-top: 3rem;
+    }
+
+    .security-badges {
+        display: flex;
+        gap: 1.5rem;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-bottom: 3rem;
+    }
+
+    .badge {
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+        padding: 1rem 1.5rem;
+        background: rgba(255, 255, 255, 0.08);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 25px;
+        font-size: 0.9rem;
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
+
+    .badge:hover {
+        background: rgba(255, 255, 255, 0.12);
+        transform: translateY(-2px);
+    }
+
+    .badge i {
+        font-size: 1.1rem;
+        color: #4facfe;
+    }
+
+    /* Animations */
+    @keyframes slideInDown {
+        from {
+            opacity: 0;
+            transform: translateY(-80px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes slideInUp {
+        from {
+            opacity: 0;
+            transform: translateY(80px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes slideInRight {
+        from {
+            opacity: 0;
+            transform: translateX(80px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+        .services-grid {
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+        
+        .stats-bar {
+            gap: 2rem;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .main-title {
+            font-size: 3rem;
+        }
+        
+        .service-card {
+            padding: 2rem;
+        }
+        
+        .stats-bar {
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .stat-item {
+            min-width: 200px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .main-title {
+            font-size: 2.5rem;
+        }
+        
+        .service-selector {
+            padding: 2rem 1rem;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="service-selector">
+    <div class="hero-section">
+        <h1 class="main-title">Code Fetcher Pro</h1>
+        <p class="main-subtitle">Premium verification code service with instant delivery and enterprise-grade security</p>
+        
+        <div class="stats-bar">
+            <div class="stat-item">
+                <span class="stat-number">99.9%</span>
+                <span class="stat-label">Uptime</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number"><2s</span>
+                <span class="stat-label">Response Time</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">24/7</span>
+                <span class="stat-label">Support</span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="services-grid">
+        <a href="{{ url_for('netflix_page') }}" class="service-card netflix-card">
+            <div class="service-icon netflix-icon">
+                <i class="fab fa-netflix"></i>
+            </div>
+            <h2 class="service-title">Netflix</h2>
+            <p class="service-description">Get your Netflix verification codes from email automatically with advanced filtering and real-time monitoring</p>
+            <ul class="service-features">
+                <li>4-digit verification codes</li>
+                <li>Real-time email monitoring</li>
+                <li>Instant code delivery</li>
+                <li>Usage analytics & tracking</li>
+                <li>Multi-account support</li>
+            </ul>
+            <button class="service-cta">Access Netflix Service</button>
+        </a>
+        
+        <a href="{{ url_for('chatgpt_page') }}" class="service-card chatgpt-card">
+            <div class="service-icon chatgpt-icon">
+                <i class="fas fa-robot"></i>
+            </div>
+            <h2 class="service-title">ChatGPT</h2>
+            <p class="service-description">Get your ChatGPT verification codes from multiple email accounts with intelligent spam filtering</p>
+            <ul class="service-features">
+                <li>6-digit verification codes</li>
+                <li>Multiple email accounts</li>
+                <li>Spam folder monitoring</li>
+                <li>Advanced AI filtering</li>
+                <li>Priority processing</li>
+            </ul>
+            <button class="service-cta">Access ChatGPT Service</button>
+        </a>
+    </div>
+    
+    <div class="footer-info">
+        <div class="security-badges">
+            <span class="badge"><i class="fas fa-shield-alt"></i> SSL Secured</span>
+            <span class="badge"><i class="fas fa-lock"></i> End-to-End Encrypted</span>
+            <span class="badge"><i class="fas fa-clock"></i> Real-time Processing</span>
+            <span class="badge"><i class="fas fa-server"></i> 99.9% Uptime</span>
+        </div>
+        
+        <p><strong>Secure • Fast • Reliable • Professional</strong></p>
+        <p>&copy; {{ current_year }} Blikk Code Fetcher Pro. All rights reserved.</p>
+    </div>
+</div>
+{% endblock %}
