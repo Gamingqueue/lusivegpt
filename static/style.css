@@ -1,30 +1,29 @@
 :root {
-    /* Netflix brand colors (adjusted for light theme) */
-    --netflix-red: 0 85% 45%;
+    /* Netflix brand colors */
+    --netflix-red: 229 9% 20%;
     --netflix-red-bright: 0 100% 50%;
-    --netflix-dark: 0 0% 98%;
-    --netflix-darker: 0 0% 95%;
-    --netflix-gray: 0 0% 85%;
-    --netflix-light-gray: 0 0% 40%;
-    --netflix-white: 0 0% 10%;
+    --netflix-dark: 0 0% 20%; /* Darkened for better contrast */
+    --netflix-darker: 0 0% 10%; /* Darkened */
+    --netflix-gray: 0 0% 30%; /* Darkened */
+    --netflix-light-gray: 0 0% 90%; /* Light gray */
+    --netflix-white: 0 0% 100%; /* Pure white */
     
-    /* Glass morphism colors */
-    --glass-bg: 0 0% 100% / 0.5;
-    --glass-border: 0 0% 0% / 0.1;
-    --glass-shadow: 0 0% 0% / 0.08;
+    /* Glass morphism colors - adjusted for light theme */
+    --glass-bg: 0 0% 100% / 0.9; /* More opaque */
+    --glass-border: 0 0% 0% / 0.1; /* Darker border */
+    --glass-shadow: 0 0% 0% / 0.1; /* Subtler shadow */
     
     /* Status colors */
-    --success: 142 76% 30%;
-    --error: 0 74% 40%;
-    --warning: 38 92% 45%;
-    --info: 217 91% 45%;
+    --success: 142 76% 36%;
+    --error: 0 84% 60%;
+    --warning: 38 92% 50%;
+    --info: 217 91% 60%;
     
     /* Animations */
     --transition-fast: 0.2s ease;
     --transition-medium: 0.3s ease;
     --transition-slow: 0.5s ease;
 }
-
 
 * {
     margin: 0;
@@ -34,29 +33,42 @@
 
 body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    background: linear-gradient(135deg, hsl(var(--netflix-dark)), hsl(var(--netflix-darker)));
-    color: hsl(var(--netflix-white));
+    background: linear-gradient(135deg, hsl(var(--netflix-white)), hsl(var(--netflix-light-gray)));
+    color: hsl(var(--netflix-dark));
     min-height: 100vh;
     overflow-x: hidden;
     position: relative;
 }
 
-/* Background overlay */
+/* Background image overlay - adjusted for light theme */
 body::before {
-    background: url('/static/background.jpg') center/cover no-repeat;
-    opacity: 0.4; /* reduce overlay intensity for light theme */
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('https://placehold.co/1920x1080/ffffff/e5e5e5') center/cover no-repeat;
+    opacity: 0.3; /* More subtle */
+    z-index: -2;
 }
 
 body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     background: linear-gradient(135deg, 
-        hsl(var(--netflix-dark) / 0.2), 
-        hsl(var(--netflix-darker) / 0.1),
+        hsl(var(--netflix-white) / 0.7), 
+        hsl(var(--netflix-light-gray) / 0.5),
         transparent
     );
+    z-index: -1;
 }
 
-
-/* Particles animation */
+/* Particles animation - adjusted for light theme */
 .particles {
     position: fixed;
     top: 0;
@@ -137,8 +149,8 @@ body::after {
     text-shadow: 
         0 0 10px hsl(var(--netflix-red-bright) / 0.5),
         0 4px 8px hsl(var(--netflix-red-bright) / 0.3),
-        2px 2px 0px #B20710,
-        3px 3px 0px #8B0509;
+        2px 2px 0px #2763b8,
+        3px 3px 0px #2763b8;
     animation: logoGlow 3s ease-in-out infinite alternate;
     transition: all var(--transition-medium);
     cursor: pointer;
@@ -149,8 +161,8 @@ body::after {
     text-shadow: 
         0 0 15px hsl(var(--netflix-red-bright) / 0.8),
         0 6px 12px hsl(var(--netflix-red-bright) / 0.5),
-        2px 2px 0px #B20710,
-        3px 3px 0px #8B0509;
+        2px 2px 0px #2763b8,
+        3px 3px 0px #2763b8;
 }
 
 @keyframes logoGlow {
@@ -158,15 +170,15 @@ body::after {
         text-shadow: 
             0 0 10px hsl(var(--netflix-red-bright) / 0.5),
             0 4px 8px hsl(var(--netflix-red-bright) / 0.3),
-            2px 2px 0px #B20710,
-            3px 3px 0px #8B0509;
+            2px 2px 0px #2763b8,
+            3px 3px 0px #2763b8;
     }
     100% {
         text-shadow: 
             0 0 20px hsl(var(--netflix-red-bright) / 0.8),
             0 6px 12px hsl(var(--netflix-red-bright) / 0.6),
-            2px 2px 0px #B20710,
-            3px 3px 0px #8B0509;
+            2px 2px 0px #2763b8,
+            3px 3px 0px #2763b8;
     }
 }
 
@@ -174,7 +186,7 @@ body::after {
     font-size: 3rem;
     font-weight: 700;
     margin-bottom: 0.5rem;
-    background: linear-gradient(135deg, hsl(var(--netflix-white)), hsl(var(--netflix-light-gray)));
+    background: linear-gradient(135deg, hsl(var(--netflix-dark)), hsl(var(--netflix-gray)));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -182,26 +194,29 @@ body::after {
 
 .subtitle {
     font-size: 1.1rem;
-    color: hsl(var(--netflix-light-gray) / 0.8);
+    color: hsl(var(--netflix-dark) / 0.8);
     font-weight: 400;
 }
 
-/* Main card */
+/* Main card - adjusted for light theme */
 .main-card {
-    background: rgba(255, 255, 255, 0.8);
-    backdrop-filter: blur(12px);
+    width: 100%;
+    max-width: 450px;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(15px);
     border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 16px;
     box-shadow: 
-        0 6px 20px rgba(0, 0, 0, 0.08),
+        0 8px 32px rgba(0, 0, 0, 0.15),
         0 0 0 1px rgba(0, 0, 0, 0.05);
+    animation: slideInUp 0.8s ease-out 0.2s both;
 }
-
 
 .card-content {
     padding: 3rem;
 }
 
-/* Input section */
+/* Input section - adjusted for light theme */
 .input-section {
     margin-bottom: 2rem;
 }
@@ -216,7 +231,7 @@ body::after {
     gap: 0.5rem;
     font-weight: 500;
     margin-bottom: 1rem;
-    color: hsl(var(--netflix-white) / 0.9);
+    color: hsl(var(--netflix-dark) / 0.9);
     font-size: 1rem;
 }
 
@@ -225,15 +240,22 @@ body::after {
 }
 
 .key-input {
-    background: rgba(255, 255, 255, 0.9);
-    border: 1px solid rgba(0, 0, 0, 0.2);
-    color: hsl(var(--netflix-white));
+    width: 100%;
+    padding: 1rem 1.5rem;
+    background: rgba(0, 0, 0, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 8px;
+    color: hsl(var(--netflix-dark));
+    font-size: 1rem;
+    font-family: inherit;
+    transition: all var(--transition-medium);
+    outline: none;
 }
 
 .key-input::placeholder {
-    color: hsl(var(--netflix-light-gray) / 0.7);
+    color: hsl(var(--netflix-gray) / 0.5);
 }
-
 
 .key-input:focus {
     border-color: hsl(var(--netflix-red-bright));
@@ -294,7 +316,7 @@ body::after {
     width: 100%;
     position: relative;
     padding: 1.25rem 2rem;
-    background: #2763b8;
+    background: linear-gradient(135deg, #2763b8, #1a406e);
     border: none;
     border-radius: 12px;
     color: hsl(var(--netflix-white));
@@ -310,14 +332,11 @@ body::after {
 .fetch-button:hover:not(:disabled) {
     transform: translateY(-3px);
     box-shadow: 0 15px 40px rgba(39, 99, 184, 0.4);
-    background: #2f73d0; /* slightly lighter for hover */
 }
 
 .fetch-button:active {
     transform: translateY(-1px);
-    background: #1f5294; /* darker for active click */
 }
-
 
 .fetch-button:disabled {
     opacity: 0.7;
@@ -361,7 +380,7 @@ body::after {
     animation: spin 1s linear infinite;
 }
 
-/* Result section */
+/* Result section - adjusted for light theme */
 .result-section {
     min-height: 120px;
 }
@@ -369,9 +388,9 @@ body::after {
 .result-display {
     width: 100%;
     min-height: 120px;
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(0, 0, 0, 0.05);
     backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     display: flex;
     align-items: center;
@@ -385,7 +404,7 @@ body::after {
     flex-direction: column;
     align-items: center;
     gap: 1rem;
-    color: hsl(var(--netflix-light-gray) / 0.6);
+    color: hsl(var(--netflix-gray) / 0.6);
     text-align: center;
 }
 
@@ -397,7 +416,7 @@ body::after {
 .result-code {
     background: hsl(var(--success) / 0.1);
     border-color: hsl(var(--success) / 0.3);
-    color: hsl(var(--netflix-white));
+    color: hsl(var(--netflix-dark));
     animation: slideInUp 0.5s ease-out;
 }
 
@@ -415,7 +434,7 @@ body::after {
 .code-label {
     font-size: 0.875rem;
     font-weight: 500;
-    color: hsl(var(--netflix-light-gray) / 0.8);
+    color: hsl(var(--netflix-gray) / 0.8);
     margin-bottom: 0.5rem;
 }
 
@@ -425,7 +444,7 @@ body::after {
     font-weight: 700;
     letter-spacing: 0.1em;
     padding: 1rem;
-    background: hsl(var(--netflix-dark) / 0.5);
+    background: hsla(0, 0%, 100%, 0.7);
     border-radius: 8px;
     border: 1px solid hsl(var(--success) / 0.3);
     position: relative;
@@ -441,7 +460,7 @@ body::after {
     height: 100%;
     background: linear-gradient(90deg, 
         transparent, 
-        hsl(var(--netflix-white) / 0.1), 
+        hsl(var(--netflix-white) / 0.3), 
         transparent
     );
     animation: shimmer 2s infinite;
@@ -450,10 +469,10 @@ body::after {
 .copy-button {
     margin-top: 1rem;
     padding: 0.5rem 1rem;
-    background: hsl(var(--netflix-gray));
+    background: hsl(var(--netflix-light-gray));
     border: 1px solid hsl(var(--glass-border));
     border-radius: 6px;
-    color: hsl(var(--netflix-white));
+    color: hsl(var(--netflix-dark));
     font-size: 0.875rem;
     cursor: pointer;
     transition: all var(--transition-fast);
@@ -462,12 +481,13 @@ body::after {
 .copy-button:hover {
     background: hsl(var(--netflix-red-bright));
     transform: translateY(-1px);
+    color: white;
 }
 
-/* Footer */
+/* Footer - adjusted for light theme */
 .footer {
     text-align: center;
-    color: hsl(var(--netflix-light-gray) / 0.6);
+    color: hsl(var(--netflix-gray) / 0.6);
     animation: slideInUp 0.8s ease-out 0.4s both;
 }
 
@@ -493,9 +513,10 @@ body::after {
     border-radius: 20px;
     font-size: 0.75rem;
     font-weight: 500;
+    color: hsl(var(--netflix-dark) / 0.8);
 }
 
-/* Toast notifications */
+/* Toast notifications - adjusted for light theme */
 .toast-container {
     position: fixed;
     top: 2rem;
@@ -507,10 +528,16 @@ body::after {
 }
 
 .toast {
-    background: rgba(255, 255, 255, 0.8);
+    padding: 1rem 1.5rem;
+    background: hsl(var(--glass-bg));
+    backdrop-filter: blur(20px);
     border: 1px solid hsl(var(--glass-border));
-    color: #222;
-    box-shadow: 0 6px 20px hsl(var(--glass-shadow));
+    border-radius: 12px;
+    color: hsl(var(--netflix-dark));
+    box-shadow: 0 10px 30px hsl(var(--glass-shadow));
+    transform: translateX(400px);
+    animation: slideInRight 0.3s ease-out forwards;
+    max-width: 350px;
 }
 
 .toast.success {
@@ -541,10 +568,24 @@ body::after {
     font-weight: 500;
 }
 
-/* Loading overlay */
+/* Loading overlay - adjusted for light theme */
 .loading-overlay {
-    background: hsl(0 0% 100% / 0.8);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: hsl(var(--netflix-white) / 0.9);
+    backdrop-filter: blur(5px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    opacity: 0;
+    visibility: hidden;
+    transition: all var(--transition-medium);
 }
+
 .loading-overlay.show {
     opacity: 1;
     visibility: visible;
@@ -552,7 +593,7 @@ body::after {
 
 .loading-content {
     text-align: center;
-    color: hsl(var(--netflix-white));
+    color: hsl(var(--netflix-dark));
 }
 
 .loading-content p {
@@ -564,7 +605,7 @@ body::after {
 .netflix-loader {
     width: 80px;
     height: 80px;
-    border: 4px solid hsl(var(--netflix-gray));
+    border: 4px solid hsl(var(--netflix-light-gray));
     border-top: 4px solid hsl(var(--netflix-red-bright));
     border-radius: 50%;
     animation: spin 1s linear infinite;
@@ -636,7 +677,7 @@ body::after {
     padding: 2rem 0 1rem 0;
     border-top: 1px solid hsl(var(--glass-border));
     text-align: center;
-    color: hsl(var(--netflix-light-gray) / 0.7);
+    color: hsl(var(--netflix-gray) / 0.7);
     animation: slideInUp 0.8s ease-out 0.6s both;
 }
 
@@ -650,7 +691,7 @@ body::after {
 
 .made-by {
     font-size: 0.9rem;
-    color: hsl(var(--netflix-light-gray) / 0.6);
+    color: hsl(var(--netflix-gray) / 0.6);
 }
 
 .blikk-link {
@@ -693,7 +734,7 @@ body::after {
     background: hsl(var(--glass-bg));
     border: 1px solid hsl(var(--glass-border));
     border-radius: 20px;
-    color: hsl(var(--netflix-light-gray) / 0.8);
+    color: hsl(var(--netflix-gray) / 0.8);
     text-decoration: none;
     font-size: 0.875rem;
     font-weight: 500;
@@ -715,7 +756,7 @@ body::after {
 
 .copyright p {
     font-size: 0.75rem;
-    color: hsl(var(--netflix-light-gray) / 0.5);
+    color: hsl(var(--netflix-gray) / 0.5);
 }
 
 /* Responsive design */
