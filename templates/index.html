@@ -159,7 +159,13 @@
             <p>Fetching your code...</p>
         </div>
 
-        <h1 class="title">Code Fetcher</h1>
+        h1.title,
+        h1.title::before,
+        h1.title::after {
+          color: #10a37f !important;
+          -webkit-text-fill-color: #10a37f !important;
+        }
+
     </div>
 
     <script src="{{ url_for('static', filename='script.js') }}"></script>
