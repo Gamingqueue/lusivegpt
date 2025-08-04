@@ -815,3 +815,7 @@ body::after {
         font-size: 1.25rem;
     }
 }
+
+h1.title {
+  color: #10a37f !important;
+}
