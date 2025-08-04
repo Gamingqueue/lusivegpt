@@ -700,25 +700,22 @@ body::after {
     transition: all var(--transition-medium);
 }
 
-.blikk-logo {
-    font-family: 'Bebas Neue', 'Arial Black', sans-serif;
-    font-size: 1.8rem;
-    font-weight: 900;
-    letter-spacing: 0.2rem;
-    color: #4A90E2;
+.blikk-logo, .blikk-logo, .blikk-brand span, .lusive-logo {
+    color: #2763b8; /* same as button */
     text-shadow: 
-        0 0 10px hsl(217 91% 60% / 0.3),
-        0 2px 4px hsl(217 91% 60% / 0.2);
-    transition: all var(--transition-medium);
+        0 0 8px rgba(39, 99, 184, 0.3),
+        0 2px 4px rgba(39, 99, 184, 0.2);
+    transition: all 0.3s ease;
 }
 
-.blikk-link:hover .blikk-logo {
-    color: #6AA3E8;
+.blikk-logo:hover, .lusive-logo:hover {
+    color: #2f73d0;
     text-shadow: 
-        0 0 15px hsl(217 91% 60% / 0.5),
-        0 3px 6px hsl(217 91% 60% / 0.3);
+        0 0 12px rgba(39, 99, 184, 0.5),
+        0 3px 6px rgba(39, 99, 184, 0.3);
     transform: scale(1.05);
 }
+
 
 .blikk-links {
     display: flex;
