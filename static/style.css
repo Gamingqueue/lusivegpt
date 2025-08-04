@@ -700,21 +700,20 @@ body::after {
     transition: all var(--transition-medium);
 }
 
-.blikk-brand,
-.blikk-brand * {
-    color: #2763b8 !important;
-    text-shadow: 
-        0 0 8px rgba(39, 99, 184, 0.2),
-        0 2px 4px rgba(39, 99, 184, 0.1);
-    transition: all 0.3s ease;
+.blikk-brand strong,
+.blikk-brand b,
+.blikk-brand .blikk-logo {
+    color: #2763b8 !important; /* always blue */
+    text-shadow: none;
+    transition: color 0.3s ease;
 }
 
-.blikk-brand:hover * {
-    color: #2f73d0 !important;
-    text-shadow: 
-        0 0 12px rgba(39, 99, 184, 0.4),
-        0 3px 6px rgba(39, 99, 184, 0.2);
+.blikk-brand strong:hover,
+.blikk-brand b:hover,
+.blikk-brand .blikk-logo:hover {
+    color: #2f73d0 !important; /* lighter on hover */
 }
+
 
 
 
