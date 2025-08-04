@@ -700,19 +700,22 @@ body::after {
     transition: all var(--transition-medium);
 }
 
+/* Force LUSIVE to always be blue */
 .blikk-brand strong,
 .blikk-brand b,
 .blikk-brand .blikk-logo {
-    color: #2763b8 !important; /* always blue */
-    text-shadow: none;
+    color: #2763b8 !important;  /* Blue as default */
+    text-shadow: none !important;
     transition: color 0.3s ease;
 }
 
+/* Hover stays slightly lighter blue */
 .blikk-brand strong:hover,
 .blikk-brand b:hover,
 .blikk-brand .blikk-logo:hover {
-    color: #2f73d0 !important; /* lighter on hover */
+    color: #2f73d0 !important;
 }
+
 
 
 
