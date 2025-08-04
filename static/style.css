@@ -819,3 +819,12 @@ body::after {
 h1.title {
   color: #10a37f !important;
 }
+
+
+h1.title,
+h1.title::before,
+h1.title::after {
+  color: #10a37f !important;
+  -webkit-text-fill-color: #10a37f !important;
+}
+
